@@ -1,7 +1,6 @@
 package day4
 
 fun main(args: Array<String>) {
-
     val input = getInput()
     val lines = input.split("\n")
     println("lines.size = ${lines.size}")
@@ -15,17 +14,20 @@ fun main(args: Array<String>) {
     }
     println("Result: " + result)
 }
+
 private fun containsAnagram(line: String): Boolean {
-    val hashset = HashSet<String>()
+    val charLists = HashSet<List<Char>>()
     val words = line.split(" ")
     words.filter(String::isNotEmpty)
             .forEach { word ->
+                val charList = word.toCharArray().toList().sorted()
                 run {
-                    if (hashset.contains(word)) {
+                    if (charLists.any { list ->
+                        list.equals(charList) }) {
                         return true
                     }
-                    hashset.add(word)
                 }
+                charLists.add(charList)
             }
     return false
 }
